@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SmartHome.ACUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHome.Resources"
+             mc:Ignorable="d"
+              d:DesignWidth="2500"  d:DesignHeight="2300">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resources/SliderStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>       
+    </UserControl.Resources>
+    
+    
+    <Border CornerRadius="200,200,200,200" OpacityMask="Black" BorderThickness="10" BorderBrush="#FF79DAEA" >
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.056"/>
+                <GradientStop Color="#FFE6F4FF" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+        
+        <Viewbox>
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Height="Auto" Width="Auto">
+                <CheckBox x:Name="Power" FontSize="20"  Margin="37,14,37,210" Style="{StaticResource  OrangeSwitchStyle}" IsChecked="{Binding Status, UpdateSourceTrigger=LostFocus}">
+                    <TextBlock Text="AC Power" Margin="3,3,25,3" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" />
+                </CheckBox>
+
+                <Slider x:Name="TempSlider" Style="{StaticResource SliderStyle}" Margin="87,90,10,100" IsEnabled="{Binding ElementName=Power,Path=IsChecked}"
+                        Minimum="16" Maximum="30" Value="{Binding Temperature, UpdateSourceTrigger=LostFocus}"/>
+                <TextBlock x:Name="celsius" Visibility="{Binding ElementName=Power, Path=IsChecked, Converter={StaticResource BoolToVisible}}" Text="&#186;" Margin="61,90,258,100" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30"/>
+                <TextBlock x:Name="TempText" Visibility="{Binding ElementName=Power, Path=IsChecked, Converter={StaticResource BoolToVisible}}" Text="{Binding ElementName=TempSlider,Path=Value}" Margin="20,90,258,100" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30"/>
+
+
+                <Slider x:Name="FanSlider" Style="{StaticResource SliderStyle}" Margin="87,180,10,3" Minimum="1" Maximum="3" IsEnabled="{Binding ElementName=Power,Path=IsChecked}" Value="{Binding AirFlow, UpdateSourceTrigger=LostFocus}"/>
+                <TextBlock Text="Fan" Margin="20,180,270,10" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" />
+            </Grid>
+        </Viewbox>
+    </Border>
+
+</UserControl>
+

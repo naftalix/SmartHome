@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="SmartHome.EdoorUsercontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHome.Resources"
+             xmlns:y="clr-namespace:SmartHome"
+             mc:Ignorable="d" d:DesignWidth="2500" Height="1500">
+
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <y:EDoorConverter x:Key="EDoorConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resources/SliderStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border CornerRadius="200,200,200,200" OpacityMask="Black" BorderThickness="10" BorderBrush="#FF79DAEA" >
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.056"/>
+                <GradientStop Color="#FFE6F4FF" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Viewbox>
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Height="Auto" Width="Auto" Margin="20,0,0,-25">
+                    <CheckBox x:Name="Open" FontSize="20"  Margin="20,10,64,197" Style="{StaticResource  OrangeSwitchStyle}" IsChecked="{Binding Status, UpdateSourceTrigger=LostFocus}">
+                        <TextBlock Text="Open/Close" Margin="3,3,30,3" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" />
+                    </CheckBox>
+
+                <Slider x:Name="AlarmSlider" Style="{StaticResource SliderStyle}" Margin="15,159,20,59" IsEnabled="{Binding ElementName=Open,Path=IsChecked}"
+                        Minimum="1" Maximum="20" Value="{Binding Alarm, UpdateSourceTrigger=LostFocus}" />
+                <TextBlock x:Name="AlarmText" Text="{Binding ElementName=Open, Path=IsChecked, Converter={StaticResource EDoorConverter}}" Margin="20,94,20,123" TextDecorations="{x:Null}"
+                           FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" RenderTransformOrigin="0.559,1.994" Visibility="Visible"/>
+                <TextBlock x:Name="TimeText" Visibility="{Binding ElementName=Open, Path=IsChecked, Converter={StaticResource BoolToVisible}}" Text="{Binding ElementName=AlarmSlider,Path=Value}" Margin="209,94,136,123" TextDecorations="{x:Null}"
+                           FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" RenderTransformOrigin="0.559,1.994"/>
+                </Grid>
+        </Viewbox>
+    </Border>
+</UserControl>

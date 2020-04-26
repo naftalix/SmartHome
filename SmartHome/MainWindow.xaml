@@ -1,0 +1,189 @@
+﻿<Window x:Class="SmartHome.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SmartHome"
+        Title="Smart Home Control" Height="804" Width="1188" WindowState="Maximized">
+
+    <Window.Resources>
+        
+        
+        <Style TargetType="Button" x:Key="IconButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Storyboard x:Key="expandStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
+        To="2" Duration="0:0:0.2" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
+        To="2" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- This storyboard will make the image revert to its original size -->
+
+        <Storyboard x:Key="shrinkStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" 
+        To="1" Duration="0:0:0.2" />
+            <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY" 
+        To="1" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <Style x:Key="zoom" TargetType ="{x:Type Image}">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform CenterX="100" CenterY="100" ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource expandStoryboard}" />
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource shrinkStoryboard}" />
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Storyboard x:Key="StartVisible" >
+            <DoubleAnimationUsingKeyFrames                                   
+                                    Storyboard.TargetProperty="Opacity">
+                <SplineDoubleKeyFrame KeyTime="00:00:0.5" Value="1.0" />
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames  
+                                    Storyboard.TargetProperty="(UIElement.Visibility)"  >
+                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="EndVisible">
+            <DoubleAnimationUsingKeyFrames 
+                                            Storyboard.TargetProperty="Opacity"  >
+                <SplineDoubleKeyFrame KeyTime="00:00:0.5" Value="0.0" />
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames  
+                                            Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+
+        <Style x:Key="Fading" TargetType="Control">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=IsVisible}" 
+                         Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard x:Name="In" Storyboard="{StaticResource ResourceKey=StartVisible}"/>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+
+                <EventTrigger RoutedEvent="MouseLeave" >
+                    <BeginStoryboard x:Name="Out" Storyboard= "{StaticResource ResourceKey=EndVisible}" />
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid >
+
+            <Image Source="Images/Home.jpg" />
+
+            <Button x:Name="LobbyLight" Style="{StaticResource IconButton}" 
+                    Command="{Binding ChangeLampCommand}" CommandParameter="{Binding ElementName=LobbyLight,Path=Name}"
+                    Height="350" Width="350" Margin="4574,681,1597,3140" RenderTransformOrigin="5.701,-4.345">
+                <Image Style="{StaticResource zoom}" Source="{Binding ImageUrl}" HorizontalAlignment="Right" RenderTransformOrigin="0.2,0.2" />
+            </Button>
+
+            <Button x:Name="BedRoomLight" Style="{StaticResource IconButton}" 
+                    Command="{Binding ChangeLampCommand}" CommandParameter="{Binding ElementName=BedRoomLight,Path=Name}"
+                    Height="350" Width="350" Margin="2879,552,3292,3269" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="{Binding ImageUrl}" HorizontalAlignment="Right" RenderTransformOrigin="0.2,0.2"/>
+            </Button>
+
+            <Button x:Name="SaloonLight" Style="{StaticResource IconButton}" 
+                    Command="{Binding ChangeLampCommand}" CommandParameter="{Binding ElementName=SaloonLight,Path=Name}"
+                    Height="350" Width="350" Margin="1296,1410,4875,2411" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="{Binding ImageUrl}" HorizontalAlignment="Right" RenderTransformOrigin="0.2,0.2"/>
+            </Button>
+
+            <Button x:Name="KitchenLight" Style="{StaticResource IconButton}" 
+                    Command="{Binding ChangeLampCommand}" CommandParameter="{Binding ElementName=KitchenLight,Path=Name}"
+                    Height="350" Width="350" Margin="5411,1927,760,1894" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="{Binding ImageUrl}" HorizontalAlignment="Right"  RenderTransformOrigin="0.2,0.2"/>
+            </Button>
+
+
+
+            <Button x:Name="HistoryInfo" Style="{StaticResource IconButton}" Command="{Binding ShowInfoCommand}" CommandParameter="{Binding ElementName=HistoryInfo,Path=Name}" 
+                   Height="350" Width="350" Margin="975,479,5609,3512" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/Info.png" RenderTransformOrigin="0.25,0.2"/>
+            </Button>
+            <local:HistoryInfoUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                  x:Name="HistoryInfoTemplate" Margin="176,80,4140,1899" Visibility="Hidden" Opacity="0.0" />
+
+
+
+            <Button x:Name="TV" Style="{StaticResource IconButton}" Command="{Binding ChangeTVCommand}" CommandParameter="{Binding ElementName=TV,Path=Name}"
+                    Height="250" Width="250" Margin="2124,1874,4047,1947" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/TV.png" RenderTransformOrigin="0.1,0.1" />
+            </Button>
+            <local:TVUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                  x:Name="TVTemplate" Margin="1204,344,3112,381" Visibility="Hidden" Opacity="0.0"/>
+
+            <Button x:Name="Edoor" Style="{StaticResource IconButton}" Command="{Binding ChangeDoorCommand}" CommandParameter="{Binding ElementName=Edoor,Path=name}"
+                    Height="250" Width="250" Margin="1592,2716,4579,1105" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/Edoor.png" RenderTransformOrigin="0.1,0.1"/>
+            </Button>
+            <local:EdoorUsercontrol Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                        x:Name="EdoorTemplate" Margin="309,2179,3314,562" Visibility="Hidden" Opacity="0.0"/>
+
+
+            <Button x:Name="EHeater" Style="{StaticResource IconButton}" Command="{Binding ChangeEHeaterCommand}" CommandParameter="{Binding ElementName=EHeater,Path=Name}"
+                    Height="250" Width="250" Margin="4049,2661,2122,1160" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/EHeater.png" RenderTransformOrigin="0.1,0.1"/>
+            </Button>
+            <local:EHeaterUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                        x:Name="EHeaterTemplate" Margin="3703,2385,1770,857" Visibility="Hidden" Opacity="0.0"/>
+
+            <Button x:Name="Eshutters1" Style="{StaticResource IconButton}" Command="{Binding ChangeShuttersCommand}" CommandParameter="{Binding ElementName=Eshutters1,Path=Name}"
+                    Height="250" Width="250" Margin="403,1865,5568,1956" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/Eshutters.png" RenderTransformOrigin="0.1,0.1"/>
+            </Button>
+            <local:EshuttersUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                        x:Name="EshuttersTemplate1" Margin="70,1272,4280,1349" Visibility="Hidden" Opacity="0.0"/>
+
+            <Button x:Name="Eshutters2" Style="{StaticResource IconButton}" Command="{Binding ChangeShuttersCommand}" CommandParameter="{Binding ElementName=Eshutters2,Path=Name}"
+                    Height="250" Width="250" Margin="5757,1237,60,2730" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/Eshutters.png" RenderTransformOrigin="0.1,0.1"/>
+            </Button>
+            <local:EshuttersUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                        x:Name="EshuttersTemplate2" Margin="4048,828,98,1842" Visibility="Hidden" Opacity="0.0"/>
+
+            <Button x:Name="Fridge" Style="{StaticResource IconButton}" Command="{Binding ChangeFridgeCommand}" CommandParameter="{Binding ElementName=Fridge,Path=Name}"
+                    Height="250" Width="250" Margin="4548,1865,1623,1956" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/Fridge.png" RenderTransformOrigin="0.1,0.1"/>
+            </Button>
+            <local:FridgeUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                        x:Name="FridgeTemplate" Margin="3537,1240,658,1321" Visibility="Hidden" Opacity="0.0" />
+
+
+
+            <Button x:Name="AC" Style="{StaticResource IconButton}" Command="{Binding ChangeACCommand}" CommandParameter="{Binding ElementName=AC,Path=Name}"
+                    Height="250" Width="250" Margin="3515,604,2656,3217" RenderTransformOrigin="0.472,-1.058">
+                <Image Style="{StaticResource zoom}" Source="Images/AC.png" RenderTransformOrigin="0.1,0.1" />
+            </Button>
+
+            <local:ACUserControl Panel.ZIndex="1000" Style="{StaticResource Fading}"
+                                 x:Name="ACTemplate" Margin="2326,169,1475,2216" Visibility="Hidden" Opacity="0.0" />
+
+        </Grid>
+    </Viewbox>
+</Window>

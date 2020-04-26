@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHome", "SmartHome\SmartHome.csproj", "{36A10026-1F78-43F7-AE04-33A471CBCDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE", "BE\BE.csproj", "{96D7DB02-22B1-490F-9073-1A378A6A1507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{1DB98E19-E757-483F-97C7-D27C681C47C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{CCA89488-8185-4E5A-8BAD-1C20005E9973}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{801C610E-C83C-487A-8282-9E87C3C64B0E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nafher.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BE\\BE.csproj
+		SccProjectName1 = BE
+		SccLocalPath1 = BE
+		SccProjectUniqueName2 = SmartHome\\SmartHome.csproj
+		SccProjectName2 = SmartHome
+		SccLocalPath2 = SmartHome
+		SccProjectUniqueName3 = DAL\\DAL.csproj
+		SccProjectName3 = DAL
+		SccLocalPath3 = DAL
+		SccProjectUniqueName4 = BL\\BL.csproj
+		SccProjectName4 = BL
+		SccLocalPath4 = BL
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36A10026-1F78-43F7-AE04-33A471CBCDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A10026-1F78-43F7-AE04-33A471CBCDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A10026-1F78-43F7-AE04-33A471CBCDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A10026-1F78-43F7-AE04-33A471CBCDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D7DB02-22B1-490F-9073-1A378A6A1507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D7DB02-22B1-490F-9073-1A378A6A1507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D7DB02-22B1-490F-9073-1A378A6A1507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D7DB02-22B1-490F-9073-1A378A6A1507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DB98E19-E757-483F-97C7-D27C681C47C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DB98E19-E757-483F-97C7-D27C681C47C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DB98E19-E757-483F-97C7-D27C681C47C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DB98E19-E757-483F-97C7-D27C681C47C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA89488-8185-4E5A-8BAD-1C20005E9973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA89488-8185-4E5A-8BAD-1C20005E9973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA89488-8185-4E5A-8BAD-1C20005E9973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA89488-8185-4E5A-8BAD-1C20005E9973}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

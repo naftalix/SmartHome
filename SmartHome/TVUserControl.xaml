@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="SmartHome.TVUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHome.Resources"
+             mc:Ignorable="d" Width="1600" Height="2600">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resources/SliderStyle.xaml"/>
+                <ResourceDictionary Source="Resources/IconButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+
+    </UserControl.Resources>
+
+    <Border CornerRadius="200,200,200,200" OpacityMask="Black" BorderThickness="10" BorderBrush="#FF79DAEA" >
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.056"/>
+                <GradientStop Color="#FFE6F4FF" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid Width="auto" Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="723*"/>
+                <ColumnDefinition Width="757*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="803*"/>
+                <RowDefinition Height="480*"/>
+                <RowDefinition Height="1197*"/>
+            </Grid.RowDefinitions>
+
+            <Viewbox Grid.Row="0" Grid.ColumnSpan="2" Margin="380,117,380,117">
+                <CheckBox x:Name="TVOn" FontSize="20"  Style="{StaticResource  OrangeSwitchStyle}"  Margin="0,0,0,0" Checked="TVOn_Checked" Unchecked="TVOn_Unchecked" IsChecked="{Binding Status, UpdateSourceTrigger=LostFocus}"/>
+            </Viewbox>
+
+
+            <Viewbox Grid.Row="1" Grid.Column="0" Margin="102,165,102,174">
+                <TextBlock Text="Volume" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" />
+            </Viewbox>
+            <Viewbox Grid.Row="2" Grid.Column="0" Margin="10,0,364,148" >
+                <Slider x:Name="VolSlider" Orientation="Vertical" Minimum="0" Maximum="100" Value="{Binding Volume, UpdateSourceTrigger=LostFocus}"
+                        Style="{StaticResource SliderStyle}" Height="250" Width="auto" IsEnabled="{Binding ElementName=TVOn,Path=IsChecked}" ValueChanged="VolSlider_ValueChanged" />
+            </Viewbox>
+            <Viewbox x:Name="VolText" Grid.Row="2" Grid.Column="0" Margin="329,885,100,120">
+                <TextBlock Visibility="{Binding ElementName=TVOn, Path=IsChecked, Converter={StaticResource BoolToVisible}}" Text="{Binding ElementName=VolSlider,Path=Value}" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="10"/>
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="1" Margin="102,165,102,174">
+                <TextBlock Text="Channel" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="30" />
+            </Viewbox>
+
+            <Viewbox x:Name="ChannelView" Grid.Row="2" Grid.Column="1" Margin="177,79,179,674">
+                <Border CornerRadius="4,4,4,4" OpacityMask="Black" BorderThickness="2" BorderBrush="#FF79DAEA">
+                    <TextBox Name="NUDTextBox" Foreground="#FF0D7297"  TextAlignment="Center" BorderThickness="2" IsEnabled="False" Text="{Binding Channel, UpdateSourceTrigger=Explicit}"
+                             HorizontalAlignment="Center" HorizontalContentAlignment="Center" PreviewKeyDown="NUDTextBox_PreviewKeyDown" PreviewKeyUp="NUDTextBox_PreviewKeyUp" 
+                             TextChanged="NUDTextBox_TextChanged" Height="20" Width="30" Background="White">
+                        <TextBox.BorderBrush>
+                            <SolidColorBrush Color="Transparent"/>
+                        </TextBox.BorderBrush >   
+                    </TextBox>
+                </Border>
+            </Viewbox>
+            <Viewbox x:Name="UpView" Grid.Row="2" Grid.Column="1" Margin="437,694,84,238">
+                <Border CornerRadius="4,4,4,4" OpacityMask="Black" BorderThickness="1" BorderBrush="#FF79DAEA">
+                    <RepeatButton Name="NUDButtonUP" IsEnabled="{Binding ElementName=TVOn, Path=IsChecked}" FontSize="8" FontFamily="Marlett" Height="13" Width="13" Style="{StaticResource IconButton}"
+                              VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Click="NUDButtonUP_Click">
+                        <Image Source="Images/up.png"/>
+                    </RepeatButton>
+                </Border>
+            </Viewbox>
+            <Viewbox x:Name="DownView" Grid.Row="2" Grid.Column="1" Margin="84,694,437,238">
+                <Border CornerRadius="4,4,4,4" OpacityMask="Black" BorderThickness="1" BorderBrush="#FF79DAEA">
+                    <RepeatButton Name="NUDButtonDown" IsEnabled="{Binding ElementName=TVOn, Path=IsChecked}" FontSize="8" FontFamily="Marlett" Height="13" Width="13" Style="{StaticResource  IconButton}"
+                              VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Click="NUDButtonDown_Click" >
+                        <Image Source="Images/down.png" />
+                    </RepeatButton>
+                </Border>
+            </Viewbox>
+        </Grid>
+    </Border>
+</UserControl>

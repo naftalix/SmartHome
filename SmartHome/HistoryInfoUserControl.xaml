@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="SmartHome.HistoryInfoUserControl"
+             xmlns:dg="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartHome.Resources"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="2300" d:DesignWidth="2500">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/CheckBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resources/SliderStyle.xaml"/>
+                <ResourceDictionary Source="Resources/zoom.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Button" x:Key="IconButton">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CustomTextBoxStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                            <Border
+                CornerRadius="4"
+                Padding="16"            
+                BorderBrush="#FF79DAEA"
+                                Background="White"
+                BorderThickness="0.2" >
+                                <ScrollViewer Margin="-15,-15,-15,-15" x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border CornerRadius="200,200,200,200" OpacityMask="Black" BorderThickness="10" BorderBrush="#FF79DAEA" >
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.056"/>
+                <GradientStop Color="#FFE6F4FF" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid Margin="0,0,0,1801">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="197.5*"/>
+                    <RowDefinition Height="197.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="303*"/>
+                    <ColumnDefinition Width="143*"/>
+                </Grid.ColumnDefinitions>
+
+                 
+                <Viewbox Grid.Row="0" Grid.Column="1" Margin="30,50,10,0" >
+                    <dg:DateTimePicker x:Name="DateFrom" Width="245" Height="Auto" DefaultValue="{x:Static sys:DateTime.Now}"/>
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="1" Margin="30,0,10,50"  >
+                    <dg:DateTimePicker x:Name="DateTo" Width="245" Height="Auto" DefaultValue="{x:Static sys:DateTime.Now}"/>
+                </Viewbox>
+
+                <Viewbox Grid.Row="0" Grid.Column="0" Margin="100,20,50,00">
+                    <TextBlock Text="From" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="2" Height="Auto" Width="Auto" />
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="0" Margin="100,30,50,110">
+                    <TextBlock Text="To" TextDecorations="{x:Null}" FontFamily="Lucida Bright" Foreground="#FF18A6DA" FontWeight="Bold" FontSize="2" Height="Auto" Width="Auto"/>
+                </Viewbox>
+
+                <Viewbox Grid.Row="0" Grid.Column="2" Margin="0,70,20,20" Width="600" Height="150">
+                    <ComboBox x:Name="SelectDevice" Width="110" Height="23" Text="Select Device" IsEditable="True" IsReadOnly="True" >
+                        <ComboBoxItem Content="Air-Conditioner"/>
+                        <ComboBoxItem Content="BedRoom-Light"/>
+                        <ComboBoxItem Content="Electric-Heater"/>
+                        <ComboBoxItem Content="Electric shutter first floor"/>
+                        <ComboBoxItem Content="Electric shutter second floor"/>
+                        <ComboBoxItem Content="Fridge"/>
+                        <ComboBoxItem Content="Kitchen-Light"/>
+                        <ComboBoxItem Content="Lobby-Light"/>
+                        <ComboBoxItem Content="Saloon-Light"/>
+                        <ComboBoxItem Content="TV"/>
+
+                    </ComboBox>
+                </Viewbox>
+
+                <Viewbox Grid.Row="1" Grid.Column="2" Margin="27,0,50,15" >
+                    <Button x:Name="OK" Width="10" Height="10" Style="{StaticResource IconButton}" Click="OK_Click" >
+                        <Image Source="Images/OkButton.png" Style="{StaticResource zoom}" RenderTransformOrigin="-9.5,-9.5" />
+                    </Button>
+
+                </Viewbox>
+            </Grid>
+
+            <Viewbox x:Name="HistoryView"  Margin="39,579,39,40">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="Info" Style="{StaticResource CustomTextBoxStyle}" Foreground="#FF0D7297" Text="" FontSize="4" IsEnabled="True" Width="100" Height="73" IsReadOnly="False" 
+                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" TextWrapping="Wrap" >
+                    </TextBox>
+                </ScrollViewer>
+            </Viewbox>
+
+
+        </Grid>
+
+    </Border>
+
+</UserControl>
